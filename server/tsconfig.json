@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        /* Language and Environment */
+        "lib": ["ES6"],
+        "target": "es2016",
+
+        /* Modules */
+        "module": "commonjs",
+        "rootDir": "src",
+
+        "outDir": "dist/js",
+
+        /* Interop Constraints */
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+
+        /* Type Checking */
+        "strict": true,
+
+        /* Completeness */
+        "skipLibCheck": true,
+
+        "types": ["node"]
+    }
+}
