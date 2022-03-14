@@ -28,7 +28,10 @@ const io = new Server(server, {
 // Whenever someone connects the following is executed
 io.on("connection", (socket: Socket) => {
     console.log("A User is connected", socket.id);
-
+    socket.on("join_room", (data) => {
+        socket.join(data);
+        console.log(`User ${socket.id} Joined The Room: ${data}`);
+    });
     // Whenever someone disonnects the following is executed
     socket.on("disconnect", () => {
         console.log("A User is Disconnected", socket.id);
