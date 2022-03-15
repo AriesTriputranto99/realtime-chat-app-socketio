@@ -52,7 +52,7 @@ const Chat: FC<Props> = ({ socket, name, roomID }) => {
                 <p>Realtime Chat App</p>
             </div>
             <div className="chat-body">
-                <ChatList messageList={messageList} name={name}></ChatList>
+                <ChatList messageList={messageList} name={name}/>
             </div>
             <div className="chat-footer">
                 <ChatAction sendMessage={sendMessage} />

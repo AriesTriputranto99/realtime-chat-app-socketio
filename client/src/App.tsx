@@ -10,9 +10,9 @@ function App() {
     const [name, setName] = useState<string>("");
     const [roomID, setRoomID] = useState<string>("");
     const [showChat, setShowChat] = useState<boolean>(false);
+
     // Joining room
     const joinRoom = () => {
-        console.log(name, roomID);
         socket.emit("join_room", roomID);
         setShowChat(true);
     };
