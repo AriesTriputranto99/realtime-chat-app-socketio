@@ -32,6 +32,10 @@ io.on("connection", (socket: Socket) => {
         socket.join(data);
         console.log(`User ${socket.id} Joined The Room: ${data}`);
     });
+    socket.on("send_message", (data) => {
+        console.log(data);
+        socket.to(data.room).emit("receive_message", data);
+    });
     // Whenever someone disonnects the following is executed
     socket.on("disconnect", () => {
         console.log("A User is Disconnected", socket.id);
