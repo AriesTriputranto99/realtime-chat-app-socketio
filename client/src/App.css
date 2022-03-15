@@ -1,8 +1,8 @@
 .App {
     width: 100vw;
     height: 100vh;
-    background: #263238;
-    color: #fff;
+    background: #21325e;
+    color: #f0f0f0;
     font-family: "Open Sans", sans-serif;
     display: grid;
     place-items: center;
@@ -17,7 +17,8 @@ body {
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 
 .joinChatContainer {
-    background-color: rgba(92, 136, 160, 0.5);
+    /* background-color: rgba(92, 136, 160, 0.5); */
+    background-color: #3e497a;
     border-radius: 5px;
     padding: 40px;
     width: 500px;
@@ -57,16 +58,17 @@ body {
     border-radius: 5px;
     padding: 5px;
     font-size: 16px;
-    background: #43a047;
-    color: #fff;
+    background: #f1d00a;
+    color: #21325e;
     cursor: pointer;
+    outline: none;
 }
 
 .joinChatContainer button:hover {
-    background: #2e7d32;
+    background: #ccae04;
 }
 .joinChatContainer button:disabled {
-    background-color: #2e7d32da;
+    background-color: #f1ce0ac9;
     cursor: not-allowed;
 }
 
