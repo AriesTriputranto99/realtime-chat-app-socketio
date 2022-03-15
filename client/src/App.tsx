@@ -1,44 +1,34 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import io from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 import "./App.css";
+import Chat from "./components/Chat";
+import JoinChat from "./components/JoinChat";
 
-const socket = io("http://localhost:5000");
+const socket: Socket = io("http://localhost:5000");
 
 function App() {
     const [name, setName] = useState<string>("");
     const [roomID, setRoomID] = useState<string>("");
-    const [isFormFilled, setIsFormFilled] = useState(false);
-    useEffect(() => {
-        if (roomID && name) setIsFormFilled(true);
-    }, [name, roomID]);
+    const [showChat, setShowChat] = useState<boolean>(false);
+    // Joining room
     const joinRoom = () => {
         console.log(name, roomID);
         socket.emit("join_room", roomID);
+        setShowChat(true);
     };
     return (
         <div className="App">
-            <div className="joinChatContainer">
-                <h3>Join A Chat</h3>
-                <input
-                    type="text"
-                    placeholder="Enter Name"
-                    value={name}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                        setName(e.target.value)
-                    }
+            {!showChat ? (
+                <JoinChat
+                    joinRoom={joinRoom}
+                    name={name}
+                    setName={setName}
+                    roomID={roomID}
+                    setRoomID={setRoomID}
                 />
-                <input
-                    type="text"
-                    placeholder="1111111"
-                    value={roomID}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                        setRoomID(e.target.value)
-                    }
-                />
-                <button onClick={joinRoom} disabled={!isFormFilled}>
-                    Join
-                </button>
-            </div>
+            ) : (
+                <Chat socket={socket} name={name} roomID={roomID} />
+            )}
         </div>
     );
 }
