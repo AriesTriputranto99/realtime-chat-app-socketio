@@ -1,5 +1,7 @@
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
+import ChatList from "./ChatList";
+import ChatAction from "./ChatAction";
 
 type Props = {
     socket: Socket;
@@ -7,7 +9,7 @@ type Props = {
     roomID: string;
 };
 
-interface IMessageData {
+export interface IMessageData {
     author: string;
     room: string;
     message: string;
@@ -23,14 +25,7 @@ const getTime = (): string => {
 
 const Chat: FC<Props> = ({ socket, name, roomID }) => {
     // States
-    const [currentMessage, setCurrentMessage] = useState<string>("");
-    const [isFilled, setIsFilled] = useState<boolean>(false);
     const [messageList, setMessageList] = useState<IMessageData[]>([]);
-
-    // Validating Inout Field
-    useEffect(() => {
-        if (currentMessage) setIsFilled(true);
-    }, [currentMessage]);
 
     // Listening for Socket Events/ Messages
     useEffect(() => {
@@ -40,40 +35,27 @@ const Chat: FC<Props> = ({ socket, name, roomID }) => {
     }, [socket]);
 
     // Sending a Message
-    const sendMessage = async () => {
+    const sendMessage = async (currentMessage: string) => {
         const messageData: IMessageData = {
-            author: name || "Khalil",
-            room: roomID || "1111",
+            author: name,
+            room: roomID,
             message: currentMessage,
             time: getTime(),
         };
         socket.emit("send_message", messageData);
         setMessageList((prev: IMessageData[]) => [...prev, messageData]);
-        setCurrentMessage("");
     };
 
     return (
         <div className="chat-window">
             <div className="chat-header">
-                <p>Live Chat</p>
+                <p>Realtime Chat App</p>
             </div>
             <div className="chat-body">
-                {messageList.map(({ message }, index) => (
-                    <h1 key={index}>{message}</h1>
-                ))}
+                <ChatList messageList={messageList} name={name}></ChatList>
             </div>
             <div className="chat-footer">
-                <input
-                    type="text"
-                    placeholder="Message"
-                    value={currentMessage}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                        setCurrentMessage(e.target.value)
-                    }
-                />
-                <button onClick={sendMessage} disabled={!isFilled}>
-                    Send
-                </button>
+                <ChatAction sendMessage={sendMessage} />
             </div>
         </div>
     );
