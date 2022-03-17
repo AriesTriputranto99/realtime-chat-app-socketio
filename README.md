@@ -2,6 +2,8 @@
 
 Built using Socket.io, React, Node and Express. This app intends to demonstrate the use of sockets and how they are used to prcess realtime data. A user Joins the room and when another user joins with the samr roomID they can converse. Added WhatsApp like UI and few functionalities.
 
+![Chat App](./snapshot/realtime-chat-app.png)
+
 ## Get Started:
 
 ### Navigate to Client directory as well as server directory and run the following command in terminal
