@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useState } from "react";
 import io, { Socket } from "socket.io-client";
 import "./App.css";
 import Chat from "./components/Chat";
